@@ -14,7 +14,6 @@ func main() {
 	app.Usage = "display your calendar in the terminal"
 
 	app.Action = func(c *cli.Context) {
-		fmt.Println("This is the main part")
 		if err := viewAction(); err != nil {
 			fmt.Fprintln(os.Stderr, "Error:", err)
 		}

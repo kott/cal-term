@@ -18,6 +18,7 @@ func New() (*Service, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	token, err := auth.GetTokenFromFile()
 	if err != nil {
 		return nil, err
@@ -25,14 +26,12 @@ func New() (*Service, error) {
 
 	client := config.Client(context.Background(), token)
 	service, err := calendar.NewService(context.Background(), option.WithHTTPClient(client))
-
 	return &Service{
 		calendarService: service,
 	}, nil
 }
 
 func (s *Service) FetchEvents() ([]*calendar.Event, error) {
-
 	tf, err := localTimeFrame()
 	if err != nil {
 		return nil, err
@@ -44,7 +43,6 @@ func (s *Service) FetchEvents() ([]*calendar.Event, error) {
 		SingleEvents(true).
 		OrderBy("startTime").
 		Do()
-
 	if err != nil {
 		return nil, err
 	}

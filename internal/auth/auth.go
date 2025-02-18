@@ -101,7 +101,6 @@ func (a *Auth) StoreCredentials() error {
 		}
 		return err
 	}
-
 	return nil
 }
 
@@ -118,7 +117,6 @@ func (a *Auth) StoreToken(token *oauth2.Token) error {
 		}
 		return err
 	}
-
 	return nil
 }
 
@@ -165,14 +163,12 @@ func GetTokenFromFile() (*oauth2.Token, error) {
 }
 
 func GetConfigFromFile() (*oauth2.Config, error) {
-	fmt.Println(credentialsFile)
 	data, err := os.ReadFile(credentialsFile)
 	if err != nil {
 		return nil, err
 	}
 
 	config, err := google.ConfigFromJSON(data, Scopes...)
-
 	return config, err
 }
 
