@@ -1,13 +1,13 @@
 package auth
 
 import (
-  "context"
-  "fmt"
-  "net/http"
-  "os/exec"
-  "runtime"
-  
-  "golang.org/x/oauth2"
+	"context"
+	"fmt"
+	"net/http"
+	"os/exec"
+	"runtime"
+
+	"golang.org/x/oauth2"
 )
 
 func redirectServer(port int, requestState string, config *oauth2.Config, ch chan<- *oauth2.Token) *http.Server {
@@ -68,4 +68,3 @@ func waitForKeyPress(msg string) {
 	var input string
 	fmt.Scanln(&input)
 }
-

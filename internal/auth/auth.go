@@ -21,10 +21,10 @@ const (
 )
 
 var (
-	dataPath string
-	tokenFile string
-  credentialsFile string
-  Scopes = []string{calendar.CalendarReadonlyScope}
+	dataPath        string
+	tokenFile       string
+	credentialsFile string
+	Scopes          = []string{calendar.CalendarReadonlyScope}
 )
 
 func init() {
@@ -36,7 +36,7 @@ func init() {
 
 	dataPath = filepath.Join(homeDir, ".config/cal-term/")
 	tokenFile = filepath.Join(dataPath, "token.json")
-  credentialsFile = filepath.Join(dataPath, "credentials.json")
+	credentialsFile = filepath.Join(dataPath, "credentials.json")
 
 	if err := os.MkdirAll(dataPath, 0755); err != nil {
 		fmt.Fprintln(os.Stderr, "Error:", err)
@@ -45,27 +45,27 @@ func init() {
 }
 
 type Credentials struct {
-  Installed *CredentialDetails `json:"installed"`
+	Installed *CredentialDetails `json:"installed"`
 }
 
 type CredentialDetails struct {
-    ClientID     string `json:"client_id"`
-    ClientSecret string `json:"client_secret"`
-    RedirectURIs []string `json:"redirect_uris"`
-    AuthURI string `json:"auth_uri"`
-    TokenURI string `json:"token_uri"`
+	ClientID     string   `json:"client_id"`
+	ClientSecret string   `json:"client_secret"`
+	RedirectURIs []string `json:"redirect_uris"`
+	AuthURI      string   `json:"auth_uri"`
+	TokenURI     string   `json:"token_uri"`
 }
 
 type Auth struct {
-  CredentialsFile string
-	TokenFile   string
-	OAuthConfig *oauth2.Config
+	CredentialsFile string
+	TokenFile       string
+	OAuthConfig     *oauth2.Config
 }
 
 func New(clientId, clientSecret string) *Auth {
 	return &Auth{
-    CredentialsFile: credentialsFile,
-		TokenFile: tokenFile,
+		CredentialsFile: credentialsFile,
+		TokenFile:       tokenFile,
 		OAuthConfig: &oauth2.Config{
 			ClientID:     clientId,
 			ClientSecret: clientSecret,
@@ -79,16 +79,16 @@ func New(clientId, clientSecret string) *Auth {
 }
 
 func (a *Auth) StoreCredentials() error {
-  c := &Credentials{
-    Installed: &CredentialDetails {
-      ClientID: a.OAuthConfig.ClientID,
-      ClientSecret: a.OAuthConfig.ClientSecret,
-      RedirectURIs: []string{redirectURL},
-      AuthURI: google.Endpoint.AuthURL,
-      TokenURI: google.Endpoint.TokenURL,
-    },
-  }
-  
+	c := &Credentials{
+		Installed: &CredentialDetails{
+			ClientID:     a.OAuthConfig.ClientID,
+			ClientSecret: a.OAuthConfig.ClientSecret,
+			RedirectURIs: []string{redirectURL},
+			AuthURI:      google.Endpoint.AuthURL,
+			TokenURI:     google.Endpoint.TokenURL,
+		},
+	}
+
 	data, err := json.Marshal(c)
 	if err != nil {
 		return err
@@ -165,15 +165,15 @@ func GetTokenFromFile() (*oauth2.Token, error) {
 }
 
 func GetConfigFromFile() (*oauth2.Config, error) {
-  fmt.Println(credentialsFile)
-  data, err := os.ReadFile(credentialsFile)
-  if err != nil {
-    return nil, err
-  }
+	fmt.Println(credentialsFile)
+	data, err := os.ReadFile(credentialsFile)
+	if err != nil {
+		return nil, err
+	}
 
-  config, err := google.ConfigFromJSON(data, Scopes...)
+	config, err := google.ConfigFromJSON(data, Scopes...)
 
-  return config, err
+	return config, err
 }
 
 func generateState() string {

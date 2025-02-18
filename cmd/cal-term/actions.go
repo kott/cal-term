@@ -14,34 +14,33 @@ func authAction(clientId, clientSecret string) error {
 	}
 
 	a := auth.New(clientId, clientSecret)
-  token, err := a.GetTokenFromWeb()
-  if err != nil {
-    return err
-  }
+	token, err := a.GetTokenFromWeb()
+	if err != nil {
+		return err
+	}
 
-  if err := a.StoreToken(token); err != nil {
-    return err
-  }
+	if err := a.StoreToken(token); err != nil {
+		return err
+	}
 
-  if err := a.StoreCredentials(); err != nil {
-    return err
-  }
+	if err := a.StoreCredentials(); err != nil {
+		return err
+	}
 
 	return nil
 }
 
 func viewAction() error {
-  s, err := gcal.New()
-  if err != nil {
-    return err
-  }
+	s, err := gcal.New()
+	if err != nil {
+		return err
+	}
 
-  events, err := s.FetchEvents()
-  if err != nil {
-    return err
-  }
+	events, err := s.FetchEvents()
+	if err != nil {
+		return err
+	}
 
-  render.DisplayEvents(events)
-  return nil
+	render.DisplayEvents(events)
+	return nil
 }
-

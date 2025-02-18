@@ -15,9 +15,9 @@ func main() {
 
 	app.Action = func(c *cli.Context) {
 		fmt.Println("This is the main part")
-    if err := viewAction(); err != nil {
-      fmt.Fprintln(os.Stderr, "Error:", err)
-    }
+		if err := viewAction(); err != nil {
+			fmt.Fprintln(os.Stderr, "Error:", err)
+		}
 	}
 
 	app.Commands = []cli.Command{

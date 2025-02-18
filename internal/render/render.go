@@ -1,7 +1,7 @@
 package render
 
 import (
-  "fmt"
+	"fmt"
 
 	calendar "google.golang.org/api/calendar/v3"
 )
@@ -17,4 +17,3 @@ func DisplayEvents(events []*calendar.Event) {
 		}
 	}
 }
-
